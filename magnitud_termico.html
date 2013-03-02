@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba de mapa Cantidad (calor) - Google Maps Api V3</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map_canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    </style>
+    <script src="countrypoints_v3.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry"></script>
+    <script>
+     //Colores mapa
+     //http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
+      var styles = [
+      {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+          { "visibility": "on" },
+          { "color": "#000045" },
+          { "lightness": 53 },
+          { "gamma": 0.46 },
+          { "saturation": -65 }
+        ]
+      },{
+        "featureType": "landscape",
+        "stylers": [
+          { "saturation": 27 },
+          { "lightness": -11 },
+          { "gamma": 1 },
+          { "color": "#ffffff" }
+        ]
+      }
+    ];
+      var map
+      function initialize() {   
+        var mapOptions = {
+          zoom: 5,
+          center: new google.maps.LatLng(-33.44616,-70.659792),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          heading: 90,
+          tilt: 45,
+          panControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          overviewMapControl: false
+        };
+        map = new google.maps.Map(document.getElementById('map_canvas'),
+            mapOptions);
+        //Colores mapa
+        map.setOptions({styles: styles});
+        // Datos de USGS jason
+        var script = document.createElement('script');
+        script.src = 'https://rxdemo-proxifier.appspot.com/?url='
+                   + 'http://earthquake.usgs.gov/earthquakes/feed/geojsonp/2.5/week'
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+
+      function eqfeed_callback(results) {
+        //Alfiler y calor
+        var heatmapData = [];
+        for (var i = 0; i < results.features.length; i++) {
+          var earthquake = results.features[i];
+          var coords = earthquake.geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({ //Alfiler
+              position: latLng,
+              map: map,
+          });
+          var magnitude = earthquake.properties.mag;
+          var weightedLoc = {
+            location: latLng,
+            weight: Math.pow(2,magnitude)
+          };
+          heatmapData.push(latLng);
+        }
+        var gradient = [
+        'rgba(255, 0, 0, 0)',
+        'rgba(255, 255, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)'
+        ]
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatmapData,
+          dissipating: false,
+          radius: 2,
+          gradient: gradient
+        });
+        heatmap.setMap(map);
+      }
+
+    </script>
+  </head>
+  <body onload="initialize()">
+    <div id="map_canvas"></div>
+  </body>
+</html>
