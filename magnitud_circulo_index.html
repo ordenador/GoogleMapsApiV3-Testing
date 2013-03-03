@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba de mapa Magnitud- Google Maps Api V3</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map_canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    </style>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry"></script>
+    <script>
+     //Colores mapa
+     //http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
+      var styles = [
+      {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+          { "visibility": "on" },
+          { "color": "#000045" },
+          { "lightness": 53 },
+          { "gamma": 0.46 },
+          { "saturation": -65 }
+        ]
+      },{
+        "featureType": "landscape",
+        "stylers": [
+          { "saturation": 27 },
+          { "lightness": -11 },
+          { "gamma": 1 },
+          { "color": "#ffffff" }
+        ]
+      }
+    ];
+      var map
+      function initialize() {   
+        var mapOptions = {
+          zoom: 5,
+          center: new google.maps.LatLng(-33.44616,-70.659792),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          heading: 90,
+          tilt: 45,
+          panControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          overviewMapControl: false
+        };
+        map = new google.maps.Map(document.getElementById('map_canvas'),
+            mapOptions);
+        //Colores mapa
+        map.setOptions({styles: styles});
+        // Datos de ChileTemblores jason
+        $.getJSON('http://chiletemblores.cl/webservices/json.php', function(data) {
+            var sismos = [];
+            $.each(data, function(key, sismo) {   //generate list
+              var latLng = new google.maps.LatLng(sismo.lat,sismo.long);
+              var marker = new google.maps.Marker({ //Circulo
+                  position: latLng,
+                  map: map,
+                  icon: getCircle(sismo.mag)
+              });
+              var marker = new google.maps.Marker({ //Alfiler
+                  position: latLng,
+                  map: map,
+              });
+              //sismo.ciudad
+              //sismo.date
+              });
+          });
+      }
+
+
+      //Metrica de Circulo
+      function getCircle(magnitude){
+        var circle = {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: "red",
+          fillOpacity: 0.4,
+          scale: Math.pow(2,magnitude) / 3.14,
+          strokeColor: "white",
+          strokeWeight: .5
+        };
+        return circle;
+      }
+
+    </script>
+  </head>
+  <body onload="initialize()">
+    <div id="map_canvas"></div>
+  </body>
+</html>
