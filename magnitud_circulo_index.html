@@ -15,8 +15,8 @@
     <script src="jquery-1.9.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry"></script>
     <script>
-     //Colores mapa
-     //http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
+     // Colores mapa
+     // http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
       var styles = [
       {
         "featureType": "water",
@@ -41,8 +41,8 @@
       var map
       function initialize() {
         var mapOptions = {
-          zoom: 5,
-          center: new google.maps.LatLng(-33.44616,-70.659792),
+          zoom: 4,
+          center: new google.maps.LatLng(-39.44616,-70.659792),
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           heading: 90,
           tilt: 45,
@@ -55,17 +55,16 @@
         };
         map = new google.maps.Map(document.getElementById('map_canvas'),
             mapOptions);
-        //Colores mapa
+        // Colores mapa
         map.setOptions({styles: styles});
         // Datos de ChileTemblores jason
         $.getJSON('http://chiletemblores.cl/webservices/json.php', function(data) {
-            var sismos = [];
             $.each(data, function(key, sismo) {   //generate list
               var latLng = new google.maps.LatLng(sismo.lat,sismo.long);
               var marker = new google.maps.Marker({ //Circulo
                   position: latLng,
                   map: map,
-                  icon: getCircle(sismo.mag)
+                  icon: getCircle(sismo.mag,key)
               });
               var marker = new google.maps.Marker({ //Alfiler
                   position: latLng,
@@ -75,7 +74,7 @@
               //sismo.date
               });
           });
-        //Responsive Design gmap api v3
+        // Responsive Design gmap api v3
         google.maps.event.addDomListener(map, 'idle', function() {
           calculateCenter();
         });
@@ -87,23 +86,37 @@
       function calculateCenter() {
         center = map.getCenter();
       }
-      //Metrica de Circulo
-      function getCircle(magnitude){
-        var circle = {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: "red",
-          fillOpacity: 0.4,
-          scale: Math.pow(2,magnitude) / 3.14,
-          strokeColor: "white",
-          strokeWeight: .5
-        };
+      // Metrica de Circulo
+      function getCircle(magnitude,key){
+        var circle;
+        // Si es el primer dato
+        if(key==1)
+        {
+          circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: "yellow",
+            fillOpacity: 0.4,
+            scale: Math.pow(2,magnitude) / 3.14,
+            strokeColor: "black",
+            strokeWeight: .5
+          };
+        }
+        else
+        {
+          circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: "red",
+            fillOpacity: 0.4,
+            scale: Math.pow(2,magnitude) / 3.14,
+            strokeColor: "yellow",
+            strokeWeight: .5
+          };
+        }
         return circle;
       }
-
     </script>
   </head>
   <body onload="initialize()">
     <div id="map_canvas"></div>
-
   </body>
 </html>
