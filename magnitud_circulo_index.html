@@ -12,8 +12,20 @@
         height: 100%;
       }
     </style>
-    <script src="jquery-1.9.1.min.js"></script>
+     <style type="text/css">
+       .labels {
+         color: white;
+         /*background-color: black;*/
+         font-family: "Lucida Grande", "Arial", sans-serif;
+         font-size: 10px;
+         text-align: center;
+         width: 20px;     
+         white-space: nowrap;
+       }
+     </style>
+    <script src="js/jquery-1.9.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry"></script>
+    <script src="js/markerwithlabel.js"></script>
     <script>
      // Colores mapa
      // http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
@@ -46,6 +58,9 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           heading: 90,
           tilt: 45,
+          scrollwheel:!1,
+          //elements:{map:!1,lat:!1,lng:!1,locality:!1,country:!1},
+          //draggableMarker:!0,
           panControl: false,
           zoomControl: false,
           mapTypeControl: false,
@@ -62,14 +77,32 @@
             $.each(data, function(key, sismo) {   //generate list
               var latLng = new google.maps.LatLng(sismo.lat,sismo.long);
               var marker = new google.maps.Marker({ //Circulo
+                  title: getTitle(sismo.mag,key),
                   position: latLng,
                   map: map,
                   icon: getCircle(sismo.mag,key)
               });
-              var marker = new google.maps.Marker({ //Alfiler
-                  position: latLng,
-                  map: map,
-              });
+             var marker = new MarkerWithLabel({
+               position: latLng,
+               map: map,
+               title: getTitle(sismo.mag,key),
+               // draggable: true,
+               // raiseOnDrag: true,
+               labelContent: sismo.mag,
+               labelAnchor: new google.maps.Point(10, 30),
+               labelStyle: {opacity: 1.0},
+               labelClass: "labels", // the CSS class for the label
+               labelInBackground: false,
+                  icon:new google.maps.MarkerImage("img/pin.png",
+                        new google.maps.Size(30,40),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(15,40)),
+                  //No es necesaria la sombra
+                  // shadow:new google.maps.MarkerImage("img/shadow.png",
+                  //       new google.maps.Size(25,9),
+                  //       new google.maps.Point(0,0),
+                  //       new google.maps.Point(12,5))
+             });
               //sismo.ciudad
               //sismo.date
               });
@@ -89,14 +122,14 @@
       // Metrica de Circulo
       function getCircle(magnitude,key){
         var circle;
-        // Si es el primer dato
+        // Si es el primer dato, entonces
         if(key==1)
         {
           circle = {
             path: google.maps.SymbolPath.CIRCLE,
             fillColor: "yellow",
             fillOpacity: 0.4,
-            scale: Math.pow(2,magnitude) / 3.14,
+            scale: Math.pow(2,magnitude),
             strokeColor: "black",
             strokeWeight: .5
           };
@@ -107,12 +140,26 @@
             path: google.maps.SymbolPath.CIRCLE,
             fillColor: "red",
             fillOpacity: 0.4,
-            scale: Math.pow(2,magnitude) / 3.14,
+            scale: Math.pow(2,magnitude),
             strokeColor: "yellow",
             strokeWeight: .5
           };
         }
         return circle;
+      }
+      // mouse over
+      function getTitle(magnitude,key){
+        var title;
+        // Si es el primer dato, entonces
+        if(key==1)
+        {
+          title = "Último Sismo: " + magnitude;
+        }
+        else
+        {
+          title = magnitude;
+        }
+        return title;
       }
     </script>
   </head>
