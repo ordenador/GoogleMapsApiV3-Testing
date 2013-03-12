@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba de mapa Magnitud- Google Maps Api V3</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    </style>
+    <style type="text/css">
+    /* css para el texto de la marca */
+         .labelMarks {
+         color: white;
+         /*background-color: black;*/
+         font-family: "Lucida Grande", "Arial", sans-serif;
+         font-size: 10px;
+         text-align: center;
+         width: 20px;     
+         white-space: nowrap;
+       }
+     </style>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry"></script>
+    <script src="js/markerwithlabel.js"></script>
+    <script src="js/mapChiletemblores_solo_circulo.js"></script>
+  </head>
+  <body onload="initialize()">
+    <div id="map"></div>
+  </body>
+</html>
