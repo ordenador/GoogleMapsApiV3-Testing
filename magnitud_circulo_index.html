@@ -11,6 +11,55 @@
         height: 100%;
       }
     </style>
+    <style>
+      #sismos {
+        font-family: Arial, Helvetica, sans-serif;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        margin-top: -200px;
+        height: 370px;
+        width: 200px;
+        padding: 5px;
+        z-index: 5;
+        border: 2px solid #999;
+        background: #fff;
+      }
+      h2 {
+        font-size: 20px;
+        margin: 0 0 5px 0;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        height: 311px;
+        width: 200px;
+        /*overflow-y: scroll;*/
+      }
+      li {
+        font-size: 15px;
+        background-color: #f1f1f1;
+        padding: 2px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        /*overflow: hidden;*/
+      }
+      li:nth-child(odd) {
+        background-color: #fcfcfc;
+      }
+      li:hover
+      {
+        background-color: #b50d0d;
+        /*font-weight:bold;*/
+        color:white;
+
+      }
+      #botones {
+        width: 100%;
+        margin: 5px 0 0 0;
+      }
+    </style>
     <style type="text/css">
     /* css para el texto de la marca */
          .labelMarks {
@@ -24,11 +73,16 @@
        }
      </style>
     <script src="js/jquery-1.9.1.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeV0tz-7_t5lEo4W9vpv5pYUymtXv2Y5c&v=3.exp&sensor=false&libraries=visualization,geometry,places"></script>
     <script src="js/markerwithlabel.js"></script>
     <script src="js/mapChiletemblores.js"></script>
   </head>
-  <body onload="initialize()">
+  <body>
     <div id="map"></div>
+    <div id="sismos">
+      <h2>Últimos Sismos</h2>
+      <ul id="listaSismos"></ul>
+      <button id="botones" onclick="ocultarMostrarMarca();" >Ocultar/Mostrar Marca</button>
+    </div>
   </body>
 </html>
