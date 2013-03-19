@@ -98,7 +98,7 @@
                position: latLng,
                map: map,
                title: getTitle(sismo.mag,key),
-               animation: google.maps.Animation.DROP,
+               //animation: google.maps.Animation.DROP,
                // draggable: true,
                // raiseOnDrag: true,
                labelContent: sismo.mag,
@@ -179,10 +179,10 @@
                 map.panTo(marker.position);
                 globoInfo.open(map, this);
               }
-              else if(globoInfo.anchor){
-                globoInfo.close(map, this);
-                centrarMapa();
-              }
+              // else if(globoInfo.anchor){
+              //   globoInfo.close(map, this);
+              //   centrarMapa();
+              // }
           });
           google.maps.event.addListener(map, 'click', function(){
               if(globoInfo){
