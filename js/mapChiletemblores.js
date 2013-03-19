@@ -117,6 +117,7 @@
              setGlobo(marker, textHtml);
              listaSismos.innerHTML += '<li title="'+ sismo.date +'" onmouseover="listaOver(' + key + ')" onclick="listaClick(' + key + ')">' 
              + sismo.mag + ' ' +sismo.ciudad +'</li>';
+             setAllMap(null);
               });
     ////key++;//extra
    ////}//extra
