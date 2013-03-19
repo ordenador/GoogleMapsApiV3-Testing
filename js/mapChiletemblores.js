@@ -6,7 +6,6 @@
 // Pero el mejor es #b50d0d, jaja
 
     var map, listaSismos;
-    var centroPrincipal = null;
     var markers = [];
     var markersCirculos = [];
     var textHtmlCirculos = [];
@@ -273,16 +272,14 @@
 
 
       function centrarMapa(){
-          map.panTo(centroPrincipal);
+          map.setCenter(map.center);
+          map.fitBounds(limits);
       }
 
       // Responsive Design gmap api v3
       function responsiveDesign(map, limits) {
         google.maps.event.addDomListener(map, 'idle', function() {
           calculateCenter(map);
-          if (centroPrincipal==null){
-            centroPrincipal = map.getCenter();
-          }
         });
         google.maps.event.addDomListener(window, 'resize', function() {
           map.setCenter(map.center);
