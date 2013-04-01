@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba de mapa Magnitud- Google Maps Api V3</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /*html, body, */
+      #map {
+        margin: 10;
+        padding: 0;
+        height: 590px;
+        width: 200px;
+        padding: 5px;
+        /*border: 2px solid #999;*/
+      }
+    </style>
+    <style>
+      #sismos {
+        font-family: Arial, Helvetica, sans-serif;
+        /*position: absolute;*/
+        right: 5px;
+        top: 50%;
+        /*margin-top: -200px;*/
+        height: 130px;
+        width: 200px;
+        padding: 5px;
+        z-index: 5;
+        /*border: 2px solid #999;*/
+        background: #fff;
+      }
+      h2 {
+        font-size: 20px;
+        margin: 0 0 5px 0;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        height: 311px;
+        width: 200px;
+        /*overflow-y: scroll;*/
+      }
+      li {
+        font-size: 15px;
+        background-color: #f1f1f1;
+        padding: 1px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        /*overflow: hidden;*/
+      }
+      li:nth-child(odd) {
+        background-color: #fcfcfc;
+      }
+      li:hover
+      {
+        background-color: #b50d0d;
+        /*font-weight:bold;*/
+        color:white;
+
+      }
+      #botones {
+        width: 100%;
+        margin: 5px 0 0 0;
+      }
+    </style>
+    <style type="text/css">
+    /* css para el texto de la marca */
+         .labelMarks {
+         color: white;
+         /*background-color: black;*/
+         font-family: "Lucida Grande", "Arial", sans-serif;
+         font-size: 10px;
+         text-align: center;
+         width: 20px;     
+         white-space: nowrap;
+       }
+     </style>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="js/markerwithlabel.js"></script>
+    <script src="js/mapChiletembloresLat.js"></script>
+  </head>
+  <body>
+    <div id="sismos">
+      <h2>Últimos Sismos</h2>
+      <ul id="listaSismos"></ul>
+    </div>
+    <div id="map"></div>
+
+  </body>
+</html>

@@ -135,7 +135,6 @@ function setGlobo(marker, textHtml){
       });
           map.panTo(marker.position);
           globoInfo.open(map, this);
-
       }
       else {
         if(contentString != globoInfo.content){
