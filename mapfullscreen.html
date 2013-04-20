@@ -1,32 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <title>Prueba de mapa Magnitud- Google Maps Api V3</title>
+    <title>Prueba de mapa full screen</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
-      /*html, body, */
-      #map {
-        margin: 10;
+      html, body, #map {
+        margin: 0;
         padding: 0;
-        height: 590px;
-        width: 200px;
-        padding: 5px;
-        /*border: 2px solid #999;*/
+        height: 100%;
       }
     </style>
     <style>
       #sismos {
         font-family: Arial, Helvetica, sans-serif;
-        /*position: absolute;*/
+        position: absolute;
         right: 5px;
         top: 50%;
-        /*margin-top: -200px;*/
-        height: 130px;
+        margin-top: -200px;
+        height: 370px;
         width: 200px;
         padding: 5px;
         z-index: 5;
-        /*border: 2px solid #999;*/
+        border: 2px solid #999;
         background: #fff;
       }
       h2 {
@@ -79,14 +75,27 @@
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="js/markerwithlabel.js"></script>
-    <script src="js/mapChiletembloresLat.js"></script>
+    <script src="js/mapChiletemblores.js"></script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-38062856-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
   </head>
   <body>
+    <div id="map"></div>
     <div id="sismos">
       <h2>Últimos Sismos</h2>
       <ul id="listaSismos"></ul>
+      <button id="botones" onclick="ocultarMostrarMarca();" >Ocultar/Mostrar Marca</button>
     </div>
-    <div id="map"></div>
-
   </body>
 </html>

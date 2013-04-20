@@ -73,7 +73,7 @@ function recorreDatos(){
               icon: getCircle(scale,key,false)
             });
               markers.push(marker);
-              listaSismos.innerHTML += '<li title="'+ sismo.date +'" onmouseover="listaOverAndClick(' + key + ')" onclick="listaOverAndClick(' + key + ')">' 
+              listaSismos.innerHTML += '<li title="'+ sismo.date +'" onmouseover="listaOverAndClick(' + key + ')" onmouseout="listaOut()">' 
               + sismo.mag + ' ' +sismo.ciudad +'</li>';
       });
   });
@@ -105,6 +105,12 @@ function listaOverAndClick(key){
     {
       markers[i].setIcon(getCircle(markers[i].icon.scale,i+1,false));
     }
+  }
+}
+
+function listaOut(){
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setIcon(getCircle(markers[i].icon.scale,i+1,false));
   }
 }
 
