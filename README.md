@@ -14,7 +14,7 @@ Los datos de los sismos son obtenidos del sitio: http://www.chiletemblores.cl
 
 * **Modificar estilo de colores:**
     Revisar `var styles` en `js/mapChiletemblores.js`
-    Wizard de syledmaps by google: `http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html`
+    Wizard de syledmaps by google: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 
 * **Ingresar marcas de circulo:**
     Revisar: variable marker con `icon: getCircle(sismo.mag,key)`
