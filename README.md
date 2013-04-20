@@ -10,7 +10,7 @@ Los datos de los sismos son obtenidos del sitio: http://www.chiletemblores.cl
 ---------------------------------------------------
 
 
-## En este epositorio puedes encontrar:
+## En este repositorio puedes encontrar:
 
 * **Modificar estilo de colores:**
     Revisar `var styles` en `js/mapChiletemblores.js`
