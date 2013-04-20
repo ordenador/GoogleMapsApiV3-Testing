@@ -22,7 +22,7 @@ Los datos de los sismos son obtenidos del sitio: http://www.chiletemblores.cl
 * **Marcas con icono personalizado:**
     Revisar: variable marker con `icon:new google.maps.MarkerImage("img/symbol_blank.png" ...`
 
-* **Marcas con texto utilizando "js/markerwithlabel.js":**
+* **Marcas con texto utilizando `js/markerwithlabel.js`:**
     Revisar: `var marker = new MarkerWithLabel`
 
 * **Globo de texto en las marcas:**
