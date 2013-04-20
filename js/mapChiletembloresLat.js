@@ -55,6 +55,15 @@ function initialize() {
     map.setOptions({styles: styles});
     // obtiene datos, y genera marcadores
     recorreDatos();
+
+    //Responsive Design gmap api v3
+    google.maps.event.addDomListener(map, 'idle', function() {
+      calculateCenter();
+    });
+    google.maps.event.addDomListener(window, 'resize', function() {
+      map.setCenter(center);
+    });
+
 }
 // Para centrar el mapa en los marcadores
 var limits = new google.maps.LatLngBounds();
@@ -112,6 +121,11 @@ function listaOut(){
     for (var i = 0; i < markers.length; i++) {
       markers[i].setIcon(getCircle(markers[i].icon.scale,i+1,false));
   }
+}
+
+// Responsive Design gmap api v3
+function calculateCenter() {
+  center = map.getCenter();
 }
 
 // Metrica de Circulo
